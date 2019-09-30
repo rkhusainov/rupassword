@@ -16,5 +16,15 @@
         <item name="android:gravity">center_horizontal</item>
     </style>
 
+    <style name="ImageButton">
+        <item name="android:enabled">false</item>
+        <item name="android:padding">@dimen/copy_button_padding</item>
+    </style>
+
+    <style name="EditText">
+        <item name="android:singleLine">true</item>
+        <item name="android:inputType">text</item>
+    </style>
+
 
 </resources>

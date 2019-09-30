@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
 
-    <LinearLayout
-        xmlns:tools="http://schemas.android.com/tools"
+    <LinearLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -17,9 +16,9 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/describe_text"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
+            android:text="@string/describe_text"
             android:textAppearance="@android:style/TextAppearance.Material.Medium" />
 
 
@@ -36,16 +35,16 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:padding="16dp"
+                android:padding="@dimen/result_padding"
                 android:textAppearance="@style/ResultTextAppearance"
                 tools:text="Result" />
 
             <ImageButton
                 android:id="@+id/btn_copy_password"
+                style="@style/ImageButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:enabled="false"
-                android:padding="@dimen/copy_button_padding"
                 android:src="@drawable/ic_content_copy" />
 
         </LinearLayout>
@@ -53,44 +52,35 @@
 
         <EditText
             android:id="@+id/edit_source"
+            style="@style/EditText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text" />
+            android:layout_height="wrap_content" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-
             <TextView
                 android:id="@+id/tv_password_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                />
+                android:layout_weight="1" />
 
             <ImageView
                 android:id="@+id/iv_password_status"
                 android:layout_width="100dp"
                 android:layout_height="30dp"
-                android:src="@drawable/pass_status_view"
-                />
+                android:src="@drawable/pass_status_view" />
 
         </LinearLayout>
-
-        <SeekBar
-            android:id="@+id/sb_pass_status"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:max="10000"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:text="@string/tv_gen_new_pass"/>
+            android:text="@string/tv_gen_new_pass" />
 
         <CheckBox
             android:id="@+id/check_caps"
@@ -107,51 +97,60 @@
             android:text="@string/digits" />
 
         <CheckBox
-            android:id="@+id/check_symbols"
+            android:id="@+id/check_spec_symbols"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/spec_symbols" />
 
+        <SeekBar
+            android:id="@+id/sb_pass_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="12"
+            android:progress="4" />
+
+        <TextView
+            android:id="@+id/tv_password_length"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/result_border"
-            android:layout_marginTop="8dp">
-
+            android:layout_marginTop="8dp"
+            android:background="@drawable/result_border">
 
             <TextView
-                android:id="@+id/text_generated"
+                android:id="@+id/tv_generated_pass"
                 style="@style/ResultTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:layout_toLeftOf="@id/btn_copy_generated"
-                android:padding="16dp"
+                android:layout_toStartOf="@id/btn_copy_generated"
+                android:padding="@dimen/result_padding"
                 android:textAppearance="@style/ResultTextAppearance"
                 tools:text="Result" />
 
             <ImageButton
                 android:id="@+id/btn_copy_generated"
+                style="@style/ImageButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:enabled="false"
-                android:padding="@dimen/copy_button_padding"
                 android:src="@drawable/ic_content_copy" />
 
         </RelativeLayout>
 
         <Button
-            android:id="@+id/button_generate"
+            android:id="@+id/btn_generate_pass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/generate_password" />
 
     </LinearLayout>
-
 
 </ScrollView>
 

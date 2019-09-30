@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -18,15 +20,23 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     private PasswordsHelper helper;
+    private PasswordGenerator mGenerator;
     private EditText sourceEditText;
     private TextView resultTextView;
     private String[] russians;
     private String[] latins;
     private View copyButton;
+    private View copyGenButton;
     private CompoundButton checkCaps;
+    private CompoundButton checkDigits;
+    private CompoundButton checkSpecSymbols;
     private TextView mTvStatus;
     private ImageView mPassStatusLine;
     private SeekBar mSeekBar;
+    private Button mGenerateBtn;
+    private TextView mGeneratedPassword;
+    private TextView mTvPasswordLength;
+    private int passwordLength;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,11 +46,16 @@ public class MainActivity extends AppCompatActivity {
         sourceEditText = findViewById(R.id.edit_source);
         resultTextView = findViewById(R.id.text_result);
         copyButton = findViewById(R.id.btn_copy_password);
-        checkCaps = findViewById(R.id.check_caps);
-        checkCaps.isChecked();
+        copyGenButton = findViewById(R.id.btn_copy_generated);
+        checkCaps = (CheckBox) findViewById(R.id.check_caps);
+        checkDigits = (CheckBox) findViewById(R.id.check_digits);
+        checkSpecSymbols = (CheckBox) findViewById(R.id.check_spec_symbols);
         mSeekBar = findViewById(R.id.sb_pass_status);
         mPassStatusLine = findViewById(R.id.iv_password_status);
         mTvStatus = findViewById(R.id.tv_password_status);
+        mGenerateBtn = findViewById(R.id.btn_generate_pass);
+        mGeneratedPassword = findViewById(R.id.tv_generated_pass);
+        mTvPasswordLength = findViewById(R.id.tv_password_length);
 
         russians = getResources().getStringArray(R.array.russians);
         latins = getResources().getStringArray(R.array.latin);
@@ -56,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
                 resultTextView.setText(helper.convert(s));
                 copyButton.setEnabled(s.length() > 0);
 
-//                generatedTextView = getResources().getQuantityText(R.plurals.symbols_count,count,count);
+//                String generatedTextView = getResources().getQuantityString(R.plurals.symbols_count, count);
 
                 int level = helper.passwordLevel(resultTextView.getText().toString());
                 mPassStatusLine.setImageResource(R.drawable.password_clip_drawable);
@@ -83,7 +98,6 @@ public class MainActivity extends AppCompatActivity {
                         break;
                 }
                 mTvStatus.setText(status);
-
             }
 
             @Override
@@ -104,11 +118,27 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        copyGenButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ClipboardManager manager = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                if (manager != null) {
+                    manager.setPrimaryClip(
+                            ClipData.newPlainText(
+                                    getString(R.string.clipboard_title), mGeneratedPassword.getText().toString()));
+                    Toast.makeText(MainActivity.this, R.string.toast_copied, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        passwordLength = mSeekBar.getProgress();
+        mTvPasswordLength.setText(String.valueOf(passwordLength));
+
         mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                mPassStatusLine.setImageLevel(progress);
-                mTvStatus.setText(String.valueOf(progress));
+                passwordLength = progress;
+                mTvPasswordLength.setText(String.valueOf(progress));
             }
 
             @Override
@@ -117,6 +147,65 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
+
+
+        mGenerateBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (passwordLength == 0) {
+                    Toast.makeText(MainActivity.this, "", Toast.LENGTH_SHORT).show();
+                }
+
+                if (checkDigits.isChecked()) {
+                    mGenerator = new PasswordGenerator.PasswordGeneratorBuilder()
+                            .useDigits(true)
+                            .useLower(true)
+                            .build();
+                } else if (checkCaps.isChecked()) {
+                    mGenerator = new PasswordGenerator.PasswordGeneratorBuilder()
+                            .useUpper(true)
+                            .useLower(true)
+                            .build();
+                } else if (checkSpecSymbols.isChecked()) {
+                    mGenerator = new PasswordGenerator.PasswordGeneratorBuilder()
+                            .useSpecSymbols(true)
+                            .useLower(true)
+                            .build();
+                } else if (checkDigits.isChecked() && checkCaps.isChecked()) {
+                    mGenerator = new PasswordGenerator.PasswordGeneratorBuilder()
+                            .useDigits(true)
+                            .useLower(true)
+                            .useUpper(true)
+                            .build();
+                } else if (checkDigits.isChecked() && checkSpecSymbols.isChecked()) {
+                    mGenerator = new PasswordGenerator.PasswordGeneratorBuilder()
+                            .useDigits(true)
+                            .useLower(true)
+                            .useSpecSymbols(true)
+                            .build();
+                } else if (checkCaps.isChecked() && checkSpecSymbols.isChecked()) {
+                    mGenerator = new PasswordGenerator.PasswordGeneratorBuilder()
+                            .useDigits(true)
+                            .useLower(true)
+                            .useSpecSymbols(true)
+                            .build();
+                } else if (checkDigits.isChecked() && checkCaps.isChecked() && checkSpecSymbols.isChecked()) {
+                    mGenerator = new PasswordGenerator.PasswordGeneratorBuilder()
+                            .useDigits(true)
+                            .useLower(true)
+                            .useUpper(true)
+                            .useSpecSymbols(true)
+                            .build();
+                } else {
+                    mGenerator = new PasswordGenerator.PasswordGeneratorBuilder()
+                            .useLower(true)
+                            .build();
+                }
+
+                String password = mGenerator.generate(passwordLength);
+                mGeneratedPassword.setText(password);
             }
         });
     }

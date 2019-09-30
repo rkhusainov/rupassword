@@ -3,4 +3,5 @@
     <dimen name="activity_padding">12dp</dimen>
     <dimen name="result_margin">16dp</dimen>
     <dimen name="copy_button_padding">8dp</dimen>
+    <dimen name="result_padding">16dp</dimen>
 </resources>
