@@ -17,19 +17,20 @@
 
     <TextView
         android:id="@+id/text_result"
+        style="@style/ResultTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/result_margin"
         android:layout_marginBottom="@dimen/result_margin"
         android:textAppearance="@style/ResultTextAppearance"
         android:textColor="@color/colorAccent"
-        tools:text="Result"
-        style="@style/ResultTextView" />
+        tools:text="Result" />
 
     <EditText
         android:id="@+id/edit_source"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:imeOptions="flagNoExtractUi"
         android:inputType="text" />
 
 

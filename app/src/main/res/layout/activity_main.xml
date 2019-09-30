@@ -15,15 +15,35 @@
         android:textAppearance="@android:style/TextAppearance.Material.Medium" />
 
 
-    <TextView
-        android:id="@+id/text_result"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/result_margin"
-        android:layout_marginBottom="@dimen/result_margin"
-        android:textAppearance="@style/ResultTextAppearance"
-        tools:text="Result"
-        style="@style/ResultTextView" />
+        android:background="@drawable/result_border"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/text_result"
+            style="@style/ResultTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/result_margin"
+            android:layout_marginBottom="@dimen/result_margin"
+            android:layout_weight="1"
+            android:padding="16dp"
+            android:textAppearance="@style/ResultTextAppearance"
+            tools:text="Result" />
+
+        <ImageButton
+            android:id="@+id/btn_copy_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:padding="@dimen/copy_button_padding"
+            android:src="@drawable/ic_content_copy" />
+
+    </LinearLayout>
+
 
     <EditText
         android:id="@+id/edit_source"
@@ -31,5 +51,70 @@
         android:layout_height="wrap_content"
         android:inputType="text" />
 
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/result_border">
+
+
+        <TextView
+            android:id="@+id/text_generated"
+            style="@style/ResultTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="@dimen/result_margin"
+            android:layout_marginBottom="@dimen/result_margin"
+            android:padding="16dp"
+            android:layout_toLeftOf="@id/btn_copy_generated"
+            android:textAppearance="@style/ResultTextAppearance"
+            tools:text="Result" />
+
+        <ImageButton
+            android:id="@+id/btn_copy_generated"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:enabled="false"
+            android:padding="@dimen/copy_button_padding"
+            android:src="@drawable/ic_content_copy" />
+
+
+    </RelativeLayout>
+
+
+    <CheckBox
+        android:id="@+id/check_caps"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/check_caps"
+        android:checked="true"/>
+
+    <CheckBox
+        android:id="@+id/check_digits"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/digits"
+        android:checked="true"/>
+
+    <CheckBox
+        android:id="@+id/check_symbols"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/spec_symbols"/>
+
+    <Button
+        android:id="@+id/button_generate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/generate_password"/>
+
+    <TextView
+        android:id="@+id/gen_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

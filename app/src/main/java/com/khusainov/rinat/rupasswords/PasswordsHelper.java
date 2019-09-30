@@ -23,16 +23,9 @@ public class PasswordsHelper {
 
             boolean found = false;
 
-//            for (int j = 0; j < russians.length; j++) {
-//                if (russians[j].equals(s)) {
-//                    result.append(latins[j]);
-//                    found = true;
-//                    break;
-//                }
-//            }
 
             for (int j = 0; j < russians.length; j++) {
-                if (russians[j].equals(s)) {
+                if (russians[j].equals(s) || russians[j].toUpperCase().equals(s)) {
                     result.append(Character.isUpperCase(c)?
                             latins[j].toUpperCase():latins[j]);
                     found = true;
