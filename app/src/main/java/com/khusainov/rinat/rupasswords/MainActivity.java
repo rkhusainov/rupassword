@@ -3,7 +3,6 @@ package com.khusainov.rinat.rupasswords;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
-import android.graphics.drawable.ClipDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -18,20 +17,16 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
+    private PasswordsHelper helper;
     private EditText sourceEditText;
     private TextView resultTextView;
     private String[] russians;
     private String[] latins;
-
-    private PasswordsHelper helper;
-
     private View copyButton;
-
     private CompoundButton checkCaps;
-
-    private SeekBar mSeekBar;
     private TextView mTvStatus;
     private ImageView mPassStatusLine;
+    private SeekBar mSeekBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
         sourceEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
             @Override
@@ -65,36 +59,37 @@ public class MainActivity extends AppCompatActivity {
 //                generatedTextView = getResources().getQuantityText(R.plurals.symbols_count,count,count);
 
                 int level = helper.passwordLevel(resultTextView.getText().toString());
+                mPassStatusLine.setImageResource(R.drawable.password_clip_drawable);
                 mPassStatusLine.setImageLevel(level);
 
                 String status = "";
                 switch (level) {
-                    case 200:
+                    case 2000:
                         status = "Очень легкий";
                         break;
-                    case 400:
+                    case 4000:
                         status = "Легкий";
                         break;
-                    case 600:
+                    case 6000:
                         status = "Средний";
                         break;
-                    case 800:
+                    case 8000:
                         status = "Тяжелый";
                         break;
-                    case 1000:
+                    case 10000:
                         status = "Очень тяжелый";
                         break;
                     default:
                         break;
                 }
                 mTvStatus.setText(status);
+
             }
 
             @Override
             public void afterTextChanged(Editable s) {
             }
         });
-
 
         copyButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,7 +104,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
         mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -119,15 +113,11 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-
             }
         });
-
     }
-
 }

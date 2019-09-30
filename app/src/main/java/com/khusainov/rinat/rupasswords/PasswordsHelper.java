@@ -1,7 +1,5 @@
 package com.khusainov.rinat.rupasswords;
 
-import java.util.regex.Pattern;
-
 public class PasswordsHelper {
     private final String[] russians;
     private final String[] latins;
@@ -15,7 +13,6 @@ public class PasswordsHelper {
         }
     }
 
-
     public String convert(CharSequence source) {
         StringBuilder result = new StringBuilder();
 
@@ -24,7 +21,6 @@ public class PasswordsHelper {
             String s = String.valueOf(c);
 
             boolean found = false;
-
 
             for (int j = 0; j < russians.length; j++) {
                 if (russians[j].equals(s) || russians[j].toUpperCase().equals(s)) {
@@ -55,7 +51,6 @@ public class PasswordsHelper {
         String digSymbUpsymbSpec = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%*^&+=|<>?!{}()\\[\\]~])(?=\\S+$).{1,}";
         String hard = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%*^&+=|<>?!{}()\\[\\]~])(?=\\S+$).{8,}";
 
-
         if (password.matches(dig)) {
             level = 2000;
         }
@@ -67,7 +62,6 @@ public class PasswordsHelper {
         if (password.matches(upsymb)) {
             level = 2000;
         }
-
 
         if (password.matches(spec)) {
             level = 2000;
@@ -109,6 +103,9 @@ public class PasswordsHelper {
             level = 6000;
         }
 
+        if (password.matches(symb) && password.matches(upsymb) && password.matches(spec)) {
+            level = 6000;
+        }
 
         if (password.matches(digSymbUpsymbSpec)) {
             level = 8000;
@@ -118,8 +115,6 @@ public class PasswordsHelper {
             level = 10000;
         }
 
-
         return level;
     }
-
 }
