@@ -71,8 +71,6 @@ public class MainActivity extends AppCompatActivity {
                 resultTextView.setText(helper.convert(s));
                 copyButton.setEnabled(s.length() > 0);
 
-//                String generatedTextView = getResources().getQuantityString(R.plurals.symbols_count, count);
-
                 int level = helper.passwordLevel(resultTextView.getText().toString());
                 mPassStatusLine.setImageResource(R.drawable.password_clip_drawable);
                 mPassStatusLine.setImageLevel(level);
