@@ -7,8 +7,9 @@
     <string name="check_caps">Заглавные</string>
     <string name="spec_symbols">Спецсимволы</string>
     <string name="digits">Цифры</string>
-    <string name="generate_password">Сгенерировать пароль</string>
+    <string name="generate_password">Сгенерировать</string>
     <string name="tv_gen_new_pass">Сгенерируйте новый пароль ему на замену</string>
+    <string name="password_wrong">Пароль должен иметь хотя бы один символ</string>
 
     <plurals name="symbols_count">
         <item quantity="one">%1$d символ</item>

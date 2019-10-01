@@ -155,52 +155,64 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (passwordLength == 0) {
-                    Toast.makeText(MainActivity.this, "", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, R.string.password_wrong, Toast.LENGTH_SHORT).show();
                 }
 
                 if (checkDigits.isChecked()) {
                     mGenerator = new PasswordGenerator.PasswordGeneratorBuilder()
-                            .useDigits(true)
                             .useLower(true)
+                            .useUpper(false)
+                            .useDigits(true)
+                            .useSpecSymbols(false)
                             .build();
                 } else if (checkCaps.isChecked()) {
                     mGenerator = new PasswordGenerator.PasswordGeneratorBuilder()
-                            .useUpper(true)
                             .useLower(true)
+                            .useUpper(true)
+                            .useDigits(false)
+                            .useSpecSymbols(false)
                             .build();
                 } else if (checkSpecSymbols.isChecked()) {
                     mGenerator = new PasswordGenerator.PasswordGeneratorBuilder()
-                            .useSpecSymbols(true)
                             .useLower(true)
+                            .useUpper(false)
+                            .useDigits(false)
+                            .useSpecSymbols(true)
                             .build();
                 } else if (checkDigits.isChecked() && checkCaps.isChecked()) {
                     mGenerator = new PasswordGenerator.PasswordGeneratorBuilder()
-                            .useDigits(true)
                             .useLower(true)
                             .useUpper(true)
+                            .useDigits(true)
+                            .useSpecSymbols(false)
                             .build();
                 } else if (checkDigits.isChecked() && checkSpecSymbols.isChecked()) {
                     mGenerator = new PasswordGenerator.PasswordGeneratorBuilder()
-                            .useDigits(true)
                             .useLower(true)
+                            .useUpper(false)
+                            .useDigits(true)
                             .useSpecSymbols(true)
                             .build();
                 } else if (checkCaps.isChecked() && checkSpecSymbols.isChecked()) {
                     mGenerator = new PasswordGenerator.PasswordGeneratorBuilder()
-                            .useDigits(true)
                             .useLower(true)
+                            .useUpper(true)
+                            .useDigits(false)
                             .useSpecSymbols(true)
                             .build();
                 } else if (checkDigits.isChecked() && checkCaps.isChecked() && checkSpecSymbols.isChecked()) {
                     mGenerator = new PasswordGenerator.PasswordGeneratorBuilder()
-                            .useDigits(true)
                             .useLower(true)
                             .useUpper(true)
+                            .useDigits(true)
                             .useSpecSymbols(true)
                             .build();
                 } else {
                     mGenerator = new PasswordGenerator.PasswordGeneratorBuilder()
                             .useLower(true)
+                            .useUpper(false)
+                            .useDigits(false)
+                            .useSpecSymbols(false)
                             .build();
                 }
 

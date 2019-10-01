@@ -4,14 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <LinearLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="@dimen/activity_padding"
         tools:context=".MainActivity">
-
 
         <TextView
             android:layout_width="match_parent"
@@ -20,7 +18,6 @@
             android:layout_marginBottom="8dp"
             android:text="@string/describe_text"
             android:textAppearance="@android:style/TextAppearance.Material.Medium" />
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -44,7 +41,6 @@
                 style="@style/ImageButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:enabled="false"
                 android:src="@drawable/ic_content_copy" />
 
         </LinearLayout>
@@ -54,7 +50,8 @@
             android:id="@+id/edit_source"
             style="@style/EditText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:outlineAmbientShadowColor="@color/colorPrimaryDark" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -71,6 +68,7 @@
                 android:id="@+id/iv_password_status"
                 android:layout_width="100dp"
                 android:layout_height="30dp"
+                android:layout_marginEnd="8dp"
                 android:src="@drawable/pass_status_view" />
 
         </LinearLayout>
@@ -80,7 +78,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:text="@string/tv_gen_new_pass" />
+            android:text="@string/tv_gen_new_pass"
+            android:textAppearance="@android:style/TextAppearance.Material.Medium" />
 
         <CheckBox
             android:id="@+id/check_caps"
@@ -139,13 +138,13 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:enabled="false"
                 android:src="@drawable/ic_content_copy" />
 
         </RelativeLayout>
 
         <Button
             android:id="@+id/btn_generate_pass"
+            style="@style/Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/generate_password" />
