@@ -3,5 +3,5 @@
     android:clipOrientation="horizontal"
     android:drawable="@color/colorPrimaryDark"
     android:gravity="left"
-    android:shape="rectangle">
+    android:shape="rectangle">  <!-- CHECK: что это? Оно не будет работать, это не шейп, это клип -->
 </clip>

@@ -10,6 +10,11 @@
     <string name="generate_password">Сгенерировать</string>
     <string name="tv_gen_new_pass">Сгенерируйте новый пароль ему на замену</string>
     <string name="password_wrong">Пароль должен иметь хотя бы один символ</string>
+    <string name="very_bad_password">Очень легкий</string>
+    <string name="bad_password">Легкий</string>
+    <string name="normal_password">Средний</string>
+    <string name="good_password">Тяжелый</string>
+    <string name="very_good_password">Очень тяжелый</string>
 
     <plurals name="symbols_count">
         <item quantity="one">%1$d символ</item>

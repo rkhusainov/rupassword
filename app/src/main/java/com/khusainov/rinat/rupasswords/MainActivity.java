@@ -76,22 +76,23 @@ public class MainActivity extends AppCompatActivity {
                 // mPassStatusLine.setImageResource(R.drawable.password_clip_drawable);
                 mPassStatusLine.setImageLevel(level);
 
+                // CHECK: НИКОГДА не хардкодим строки для UI, просто НИКОГДА
                 String status = "";
                 switch (level) {
                     case 2000:
-                        status = "Очень легкий";
+                        status = getString(R.string.very_bad_password);
                         break;
                     case 4000:
-                        status = "Легкий";
+                        status = getString(R.string.bad_password);
                         break;
                     case 6000:
-                        status = "Средний";
+                        status = getString(R.string.normal_password);
                         break;
                     case 8000:
-                        status = "Тяжелый";
+                        status = getString(R.string.good_password);
                         break;
                     case 10000:
-                        status = "Очень тяжелый";
+                        status = getString(R.string.very_good_password);
                         break;
                     default:
                         break;
@@ -158,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
                 if (passwordLength == 0) {
                     Toast.makeText(MainActivity.this, R.string.password_wrong, Toast.LENGTH_SHORT).show();
                 }
-
+                // CHECK: а) очень запутано, просто ОЧЕНЬ, б) почему это тут, а не в хелпере?
                 if (checkDigits.isChecked() && !checkCaps.isChecked() && !checkSpecSymbols.isChecked()) {
                     mGenerator = new PasswordGenerator.PasswordGeneratorBuilder()
                             .useLower(true)
