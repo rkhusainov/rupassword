@@ -21,7 +21,7 @@ public class PasswordsHelperTest {
             "",
             "ytrewq",
             "QWERTY",
-            "зщшгне"
+            "зщшгyt"
     };
 
 
@@ -34,14 +34,8 @@ public class PasswordsHelperTest {
 
     @Test
     public void testConvert() {
-        assertEquals("Error in test case", SOURCES.length == RESULTS.length);
         for (int i = 0; i < SOURCES.length; i++) {
             assertEquals(RESULTS[i], mHelper.convert(SOURCES[i]));
         }
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void convertIsThrows() {
-
     }
 }

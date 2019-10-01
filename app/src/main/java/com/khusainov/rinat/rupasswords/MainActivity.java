@@ -132,13 +132,15 @@ public class MainActivity extends AppCompatActivity {
         });
 
         passwordLength = mSeekBar.getProgress();
-        mTvPasswordLength.setText(String.valueOf(passwordLength));
+        String generatedTextView = getResources().getQuantityString(R.plurals.symbols_count, passwordLength,passwordLength);
+        mTvPasswordLength.setText(generatedTextView);
 
         mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 passwordLength = progress;
-                mTvPasswordLength.setText(String.valueOf(progress));
+                String generatedTextView = getResources().getQuantityString(R.plurals.symbols_count, passwordLength,passwordLength);
+                mTvPasswordLength.setText(generatedTextView);
             }
 
             @Override
