@@ -72,7 +72,8 @@ public class MainActivity extends AppCompatActivity {
                 copyButton.setEnabled(s.length() > 0);
 
                 int level = helper.passwordLevel(resultTextView.getText().toString());
-                mPassStatusLine.setImageResource(R.drawable.password_clip_drawable);
+                // Программная установка ресурса для imageView
+                // mPassStatusLine.setImageResource(R.drawable.password_clip_drawable);
                 mPassStatusLine.setImageLevel(level);
 
                 String status = "";
@@ -130,14 +131,14 @@ public class MainActivity extends AppCompatActivity {
         });
 
         passwordLength = mSeekBar.getProgress();
-        String generatedTextView = getResources().getQuantityString(R.plurals.symbols_count, passwordLength,passwordLength);
+        String generatedTextView = getResources().getQuantityString(R.plurals.symbols_count, passwordLength, passwordLength);
         mTvPasswordLength.setText(generatedTextView);
 
         mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 passwordLength = progress;
-                String generatedTextView = getResources().getQuantityString(R.plurals.symbols_count, passwordLength,passwordLength);
+                String generatedTextView = getResources().getQuantityString(R.plurals.symbols_count, passwordLength, passwordLength);
                 mTvPasswordLength.setText(generatedTextView);
             }
 
