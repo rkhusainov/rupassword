@@ -76,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
                 // mPassStatusLine.setImageResource(R.drawable.password_clip_drawable);
                 mPassStatusLine.setImageLevel(level);
 
-                // CHECK: НИКОГДА не хардкодим строки для UI, просто НИКОГДА
                 String status = "";
                 switch (level) {
                     case 2000:
