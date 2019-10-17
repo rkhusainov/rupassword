@@ -105,8 +105,7 @@
             android:id="@+id/sb_pass_status"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:max="16"
-            android:progress="4"
+            android:max="10"
             android:layout_marginTop="16dp"/>
 
         <TextView

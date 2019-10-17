@@ -24,6 +24,20 @@
         <item quantity="other">%1$d символов</item>
     </plurals>
 
+    <string-array name="levels">
+        <item>(сила пароля)</item>
+        <item>Ужасный</item>
+        <item>Очень плохой</item>
+        <item>Плохой</item>
+        <item>Слабый</item>
+        <item>Слабоватый</item>
+        <item>Нормальный</item>
+        <item>Лучше среднего</item>
+        <item>Хороший</item>
+        <item>Очень хороший</item>
+        <item>Отличный</item>
+    </string-array>
+
     <string-array name="russians">
         <item>й</item>
         <item>ц</item>

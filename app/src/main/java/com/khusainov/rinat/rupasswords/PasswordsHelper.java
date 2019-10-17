@@ -1,8 +1,27 @@
 package com.khusainov.rinat.rupasswords;
 
+import java.util.HashSet;
+import java.util.Random;
+import java.util.Set;
+
 public class PasswordsHelper {
+
+    private static final int MIN_UNIQUE_SYMBOLS = 4;
+
     private final String[] russians;
     private final String[] latins;
+
+    public static final char[] SYMBOLS = {'@', '#', '_', '%', '&'};
+
+    private Random random;
+
+    /**
+     * Конструктор принимает словари русских и соответствующих им латинских символов
+     *
+     * @param russians русские символы
+     * @param latins   латинские символы
+     * @throws IllegalArgumentException если длины словарей не совпадают
+     */
 
     public PasswordsHelper(String[] russians, String[] latins) {
         this.russians = russians;
@@ -11,7 +30,17 @@ public class PasswordsHelper {
         if (russians.length != latins.length) {
             throw new IllegalArgumentException();
         }
+
+        random = new Random();
     }
+
+    /**
+     * Преобразует строку с русским паролем в латинские символы. Регистр символов сохраняется,
+     * отсутствующие в словаре символы остаются как есть.
+     *
+     * @param source исходный пароль
+     * @return Преобразованный пароль
+     */
 
     public String convert(CharSequence source) {
         StringBuilder result = new StringBuilder();
@@ -42,80 +71,91 @@ public class PasswordsHelper {
 
         int level = 0;
 
-        String dig = "(?=.*[0-9]).{1,}";
-        String symb = "(?=.*[a-z]).{1,}";
-        String upsymb = "(?=.*[A-Z]).{1,}";
-        String spec = "(?=.*[@#$%*^&+=|<>?!{}()\\[\\]~])(?=\\S+$).{1,}";
-        String digSymb = "(?=.*[0-9])(?=.*[a-z]).{1,}";
-        String digSymbUpsymb = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{1,}";
-        String digSymbUpsymbSpec = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%*^&+=|<>?!{}()\\[\\]~])(?=\\S+$).{1,}";
-        String hard = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%*^&+=|<>?!{}()\\[\\]~])(?=\\S+$).{8,}";
+        int digits = 0;
+        int symbols = 0;
+        int uppercases = 0;
+        int letters = 0;
 
-        if (password.matches(dig)) {
-            level = 2000;
+        // коллекция для подсчета уникальных символов
+        Set<Character> uniques = new HashSet<>();
+
+        // За каждые 4 символа начислим единицу силы пароля, но не более 3
+        level += Math.min(3, password.length());
+
+        // читаем пароль посимвольно и проверяем
+        for (int i = 0; i < password.length(); i++) {
+            char c = password.charAt(i);
+            uniques.add(c);
+
+            if (Character.isLetterOrDigit(c)) {
+                if (Character.isDigit(c)) {
+                    digits++;
+                } else {
+                    letters++;
+                }
+
+                if (Character.isUpperCase(c)) {
+                    uppercases++;
+                }
+            } else {
+                symbols++;
+            }
         }
 
-        if (password.matches(symb)) {
-            level = 2000;
+        // определяем силу пароля
+        level += digits > 0 ? Math.min(2, digits) : 0;
+        level += uppercases > 0 ? Math.min(2, uppercases) : 0;
+        level += symbols > 0 ? Math.min(2, symbols) : 0;
+
+        level += uniques.size() - MIN_UNIQUE_SYMBOLS > 0 ? Math.min(2, uniques.size()) : 0;
+
+        // Штраф за одни цифры и символы
+        if (letters == 0) {
+            level--;
         }
 
-        if (password.matches(upsymb)) {
-            level = 2000;
+        // Штраф за один и тот же символ
+        if (uniques.size() == 1) {
+            level=1;
         }
 
-        if (password.matches(spec)) {
-            level = 2000;
-        }
-
-        if (password.matches(digSymb)) {
-            level = 4000;
-        }
-
-        if (password.matches(dig) && password.matches(upsymb)) {
-            level = 4000;
-        }
-
-        if (password.matches(dig) && password.matches(spec)) {
-            level = 4000;
-        }
-
-        if (password.matches(symb) && password.matches(upsymb)) {
-            level = 4000;
-        }
-
-        if (password.matches(symb) && password.matches(spec)) {
-            level = 4000;
-        }
-
-        if (password.matches(upsymb) && password.matches(spec)) {
-            level = 4000;
-        }
-
-        if (password.matches(digSymbUpsymb)) {
-            level = 6000;
-        }
-
-        if (password.matches(digSymb) & password.matches(spec)) {
-            level = 6000;
-        }
-
-        if (password.matches(dig) && password.matches(upsymb) && password.matches(spec)) {
-            level = 6000;
-        }
-
-        if (password.matches(symb) && password.matches(upsymb) && password.matches(spec)) {
-            level = 6000;
-        }
-
-        if (password.matches(digSymbUpsymbSpec)) {
-            level = 8000;
-        }
-
-        if (password.matches(hard)) {
-            level = 10000;
-        }
-
-        return level;
+        return Math.max(0, Math.min(10, level));
     }
 
+    /**
+     * Генерирует пароль с указанной сложностью
+     *
+     * @param length длина генерируемого пароля
+     * @param caps использовать ли заглавные символы
+     * @param digits использовать ли цифры
+     * @param symbols использовать ли спецсимволы
+     *
+     * @return Сгенерированный пароль
+     */
+    public String generatePassword(int length, boolean caps, boolean digits, boolean symbols) {
+        StringBuilder password = new StringBuilder();
+
+        for (int i = 0; i < length; i++) {
+            boolean capitalize = caps && random.nextBoolean();
+            boolean nonLetter = (digits || symbols) && random.nextBoolean();
+
+            char c;
+
+            if (nonLetter) {
+                if ((digits && !symbols) || (digits && random.nextBoolean())) {
+                    c = Character.forDigit(random.nextInt(9), 10);
+                } else {
+                    c = SYMBOLS[random.nextInt(10000) % SYMBOLS.length];
+                }
+            } else {
+                int letter = random.nextInt(26);
+                int code = 'a' + letter;
+                c = Character.toChars(code)[0];
+            }
+
+            password.append(capitalize? Character.toUpperCase(c) :  c);
+        }
+
+        return password.toString();
+    }
 }
